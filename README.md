@@ -1,6 +1,6 @@
 # Exemplos da Aula sobre Pixi.js
 
-Este repositório contém os exemplos que foram apresentados na aula do dia 13/11.
+Este repositório contém os exemplos que foram apresentados na aula do dia 27/11.
 
 ## Instalação
 ### Faça um clone deste repositório
