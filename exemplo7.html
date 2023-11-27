@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PIXI.js Interaction Example</title>
+  <script type="module" src="https://cdn.skypack.dev/pixi.js@6.2.0"></script>
+</head>
+<body>
+
+<script type="module">
+  import * as PIXI from 'pixi.js';
+
+  // Criação da aplicação PIXI
+  const app = new PIXI.Application({ width: 800, height: 600 });
+  document.body.appendChild(app.view);
+
+  // Carrega a textura diretamente
+  const characterTexture = PIXI.Texture.from('sample.png');
+
+  // Cria um sprite com a textura do personagem
+  const characterSprite = new PIXI.Sprite(characterTexture);
+  characterSprite.position.set(100, 100);
+  app.stage.addChild(characterSprite);
+
+  
+  characterSprite.eventMode = 'dynamic'; // Pode ser 'static' se não precisar de eventos durante a movimentação
+
+  // Adiciona eventos de teclado para mover o sprite
+  window.addEventListener('keydown', handleKeyDown);
+  function handleKeyDown(event) {
+    const speed = 5;
+
+    switch (event.key) {
+      case 'ArrowUp':
+        characterSprite.y -= speed;
+        break;
+      case 'ArrowDown':
+        characterSprite.y += speed;
+        break;
+      case 'ArrowLeft':
+        characterSprite.x -= speed;
+        break;
+      case 'ArrowRight':
+        characterSprite.x += speed;
+        break;
+    }
+  }
+</script>
+
+</body>
+</html>

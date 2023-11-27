@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <script type="module">
+        import * as PIXI from 'pixi.js';
+   
+  // Criação da aplicação PIXI
+  const app = new PIXI.Application({ width: 800, height: 600 });
+  document.body.appendChild(app.view);
+
+  // Adiciona um recipiente ao palco
+  const container = new PIXI.Container();
+  app.stage.addChild(container);
+  container.position.set(50,50)
+
+  // Adiciona dois sprites ao recipiente
+  const sprite1 = PIXI.Sprite.from('sample.png');
+  const sprite2 = PIXI.Sprite.from('sample.png');
+  container.addChild(sprite1);
+  app.stage.addChild(sprite2);
+
+  // Define as posições locais dos sprites
+  sprite1.position.set(50, 50);
+  sprite2.position.set(100, 100);
+
+
+
+    </script>
+  </body>
+</html>

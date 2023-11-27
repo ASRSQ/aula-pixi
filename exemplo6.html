@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PIXI.js Graphics Examples</title>
+  <script type="module" src="https://cdn.skypack.dev/pixi.js@6.2.0"></script>
+</head>
+<body>
+
+<script type="module">
+  import * as PIXI from 'pixi.js';
+
+  // Criação da aplicação PIXI
+  const app = new PIXI.Application({ width: 800, height: 600 });
+  document.body.appendChild(app.view);
+
+  // Exemplo 1: Desenhar um retângulo simples
+  const rectangle = new PIXI.Graphics();
+  rectangle.beginFill(0xFF0000);
+  rectangle.drawRect(50, 50, 200, 100);
+  rectangle.endFill();
+  app.stage.addChild(rectangle);
+
+  // Exemplo 2: Desenhar um círculo
+  const circle = new PIXI.Graphics();
+  circle.beginFill(0x00FF00);
+  circle.drawCircle(400, 150, 50);
+  circle.endFill();
+  app.stage.addChild(circle);
+
+  // Exemplo 3: Desenhar uma elipse
+  const ellipse = new PIXI.Graphics();
+  ellipse.beginFill(0x0000FF);
+  ellipse.drawEllipse(600, 150, 80, 50);
+  ellipse.endFill();
+  app.stage.addChild(ellipse);
+
+  // Exemplo 4: Utilizar um objeto Graphics como máscara
+  const maskGraphics = new PIXI.Graphics();
+  maskGraphics.beginFill(0xFFFFFF);
+  maskGraphics.drawRect(300, 300, 200, 200);
+  maskGraphics.endFill();
+  
+  const maskedContainer = new PIXI.Container();
+  maskedContainer.mask = maskGraphics;
+  app.stage.addChild(maskedContainer);
+
+  const maskedContent = new PIXI.Graphics();
+  maskedContent.beginFill(0xFF00FF);
+  maskedContent.drawRect(350, 350, 100, 100);
+  maskedContent.endFill();
+  maskedContainer.addChild(maskedContent);
+
+  // Função para esperar um período de tempo
+  function wait(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  // Exemplo 5: Animação usando Graphics
+  app.ticker.add(async (delta) => {
+    // Mova o círculo para cima e para baixo
+    circle.y += 2;
+
+    // Aguarde um pouco para simular interação do usuário
+    await wait(500);
+
+    // Se o círculo atingir a parte inferior, reinicie na parte superior
+    if (circle.y > app.screen.height) {
+      circle.y = -50;
+    }
+  });
+</script>
+
+</body>
+</html>

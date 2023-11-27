@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixi.js Exemplos</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <script type="module">
+         import * as PIXI from 'pixi.js';
+
+        const app = new PIXI.Application({ resizeTo: window, backgroundColor: 0xd0d0d0 });
+        document.body.appendChild(app.view);
+        // Crie um sprite usando o arquivo SVG
+        const logo = PIXI.Sprite.from('logo.svg');
+        logo.anchor.set(0.5);
+
+        // Adiciona o logo ao palco
+        app.stage.addChild(logo);
+
+        const exampleLinks = [
+            { name: 'Exemplo 1 (Sprite Simples)', url: 'exemplo1.html' },
+            { name: 'Exemplo 2 (Hierarquia)', url: 'exemplo2.html' },
+            { name: 'Exemplo 3 (Ordem de Render)', url: 'exemplo3.html' },
+            { name: 'Exemplo 4 (Local vs Global)', url: 'exemplo4.html' },
+            { name: 'Exemplo 5 (Container Mask)', url: 'exemplo5.html' },
+            { name: 'Exemplo 6 (Formas)', url: 'exemplo6.html' },
+            { name: 'Exemplo 7 (Atividade)', url: 'site.html' },
+        ];
+
+        const exampleLinksContainer = new PIXI.Container();
+        app.stage.addChild(exampleLinksContainer);
+
+        exampleLinks.forEach((example, index) => {
+            const link = new PIXI.Text(example.name, {
+                fill: 0xffffff,         // Cor do texto
+                fontSize: 24,
+                fontFamily: 'Arial',
+                fontWeight: 'bold',
+                stroke: 0x000000,        // Cor do contorno
+                strokeThickness: 4,     // Espessura do contorno
+                padding: 10,            // Preenchimento interno
+                align: 'center',        // Alinhamento do texto
+                backgroundColor: 0x0000ff, // Cor de fundo
+                wordWrap: true,
+                wordWrapWidth: 500      // Largura para quebrar as linhas
+            });
+
+            link.position.set(app.screen.width / 2, app.screen.height / 4 + index * 80);
+            link.anchor.set(0.5);
+            link.interactive = true;
+            link.buttonMode = true;
+            link.on('pointerdown', () => window.location.href = example.url);
+            exampleLinksContainer.addChild(link);
+        });
+
+        
+        const logoTarget = new PIXI.Point();
+
+resetLogoTarget();
+
+function resetLogoTarget() {
+    logoTarget.x = Math.floor(Math.random() * app.screen.width);
+    logoTarget.y = Math.floor(Math.random() * app.screen.height);
+    console.log("x="+logoTarget.x)
+    console.log("y="+logoTarget.y)
+}
+
+app.ticker.add(() => {
+    logo.x += (logoTarget.x - logo.x) * 0.1;
+    logo.y += (logoTarget.y - logo.y) * 0.1;
+
+    if (Math.abs(logo.x - logoTarget.x) < 1) {
+        resetLogoTarget();
+    }
+});
+
+    </script>
+</body>
+</html>
